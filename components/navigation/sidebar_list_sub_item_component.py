@@ -15,6 +15,6 @@ class SidebarListSubItemComponent(BaseComponent):
         expect(self.sub_item).to_be_visible()
         expect(self.sub_item).to_have_text(sub_item)
 
-    def navigate_url(self, expected_url: Pattern[str]):
+    def click_navigate_url(self, expected_url: Pattern[str]):
         self.sub_item.click()
         self.check_current_url(expected_url)

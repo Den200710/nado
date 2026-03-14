@@ -24,6 +24,13 @@ def test_displaying_toolbar_on_gas_work_pages(
     create_gas_work_page.block_select_organization.check_condition_toggle('Да')
     create_gas_work_page.block_select_organization.check_visible_performing_contracting_organization_label()
     create_gas_work_page.block_select_organization.click_select_contracting_organization()
+    create_gas_work_page.permit_issuer.check_required_field(True)
+    create_gas_work_page.executor.check_required_field(True)
+    create_gas_work_page.admitter.check_required_field(True)
+    create_gas_work_page.shift_supervisor.check_required_field(False)
+    create_gas_work_page.representative_gss.check_required_field(True)
+    create_gas_work_page.permit_issuer.click_select_responsible()
+
     time.sleep(1)
 
 

@@ -30,22 +30,22 @@ class SidebarListItemComponent(BaseComponent):
         self.check_current_url(expected_url)
 
     def click_to_approval_works_sub_item(self):
-        self.to_approval_works_list_sub_item.navigate_url(re.compile(r".*/to_approval"))
+        self.to_approval_works_list_sub_item.click_navigate_url(re.compile(r".*/to_approval"))
 
     def click_current_works_sub_item(self):
-        self.current_works_list_sub_item.navigate_url(re.compile(r".*/current-works"))
+        self.current_works_list_sub_item.click_navigate_url(re.compile(r".*/current-works"))
 
     def click_all_works_sub_item(self):
-        self.all_works_list_sub_item.navigate_url(re.compile(r".*/all-works"))
+        self.all_works_list_sub_item.click_navigate_url(re.compile(r".*/all-works"))
 
     def click_dictionaries_sub_item(self):
-        self.dictionaries_list_sub_item.navigate_url(re.compile(r".*/dictionaries/action"))
+        self.dictionaries_list_sub_item.click_navigate_url(re.compile(r".*/dictionaries/action"))
 
     def click_templates_sub_item(self):
-        self.templates_list_sub_item.navigate_url(re.compile(r".*/templates/list/my-team"))
+        self.templates_list_sub_item.click_navigate_url(re.compile(r".*/templates/list/my-team"))
 
     def click_archive_sub_item(self):
-        self.archive_list_sub_item.navigate_url(re.compile(r".*/archive"))
+        self.archive_list_sub_item.click_navigate_url(re.compile(r".*/archive"))
 
     def click_logbook_sub_item(self):
-        self.logbook_list_sub_item.navigate_url(re.compile(r".*/logbook"))
+        self.logbook_list_sub_item.click_navigate_url(re.compile(r".*/logbook"))
