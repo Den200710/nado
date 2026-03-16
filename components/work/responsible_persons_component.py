@@ -22,5 +22,3 @@ class ResponsiblePersonsComponent(BaseComponent):
     def get_value(self) -> str:
         return self.approver_person_field.input_value()
 
-    def check_required_field(self, should_have_after: bool) -> None:
-        self.base_page.check_after(self.approver_person_label, should_have_after)

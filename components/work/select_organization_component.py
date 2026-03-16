@@ -10,7 +10,7 @@ class BlockSelectOrganizationComponent(BaseComponent):
 
         self.base_page = BasePage(page)
 
-        self.toggle = page.locator("//input[@id='performed_by_contractor']")
+        self.toggle = page.locator("label:has-text('Использовать сотрудников ПО')")
         self.team_field = page.locator("//input[@id='performing_team_id']")
         self.contracting_organization_field = page.locator("//input[@id='performing_contractor_id']")
         self.performing_team_label = page.locator("//label[@id='performing_team_id-control-label']")
@@ -21,7 +21,14 @@ class BlockSelectOrganizationComponent(BaseComponent):
         )
 
     def click_toggle(self):
-        self.toggle.click(force=True)
+        self.toggle.is_enabled()
+        self.toggle.click()
+
+    def toggle_should_be_enabled(self):
+        expect(self.toggle).to_be_checked()
+
+    def toggle_should_be_disabled(self):
+        expect(self.toggle).not_to_be_checked()
 
     def click_select_team(self):
         self.team_field.click()
@@ -37,5 +44,3 @@ class BlockSelectOrganizationComponent(BaseComponent):
         expect(self.performing_contracting_organization_label).to_be_visible()
         self.base_page.check_after(self.performing_contracting_organization_label, True)
 
-    def check_condition_toggle(self, condition):
-        expect(self.condition_toggle).to_have_text(condition)
