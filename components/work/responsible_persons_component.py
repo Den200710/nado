@@ -10,15 +10,19 @@ class ResponsiblePersonsComponent(BaseComponent):
         self.base_page = BasePage(page)
         self.identifier = identifier
 
-        self.approver_person_field = page.locator(f"//input[@id='approver_{identifier}_id']")
-        self.approver_person_label = page.locator(f"//label[@id='approver_{identifier}_id-control-label']")
+        self.responsible_person_field = page.locator(f"//input[@id='approver_{identifier}_id']")
+        self.responsible_person_label = page.locator(f"//label[@id='approver_{identifier}_id-control-label']")
+        self.select_first_responsible_in_list = page.locator("(//div[contains(@class,'employee-fio')])[1]")
 
     def click_select_responsible(self) -> None:
-        self.approver_person_field.click()
-
-    def clear(self) -> None:
-        self.approver_person_field.clear()
+        self.responsible_person_field.click()
 
     def get_value(self) -> str:
-        return self.approver_person_field.input_value()
+        return self.responsible_person_field.input_value()
+
+    def click_responsible_person_field(self) -> None:
+        self.responsible_person_field.click()
+
+    def click_select_first_responsible_in_list(self) -> None:
+        self.select_first_responsible_in_list.click()
 

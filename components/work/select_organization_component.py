@@ -17,17 +17,20 @@ class BlockSelectOrganizationComponent(BaseComponent):
         self.performing_contracting_organization_label = page.locator(
             "//label[@id='performing_contractor_id-control-label']")
         self.condition_toggle = page.locator(
-            "//input[@id='performed_by_contractor']/following-sibling::span[contains(@class,'toggle-presentation')]"
-        )
+            "//input[@id='performed_by_contractor']/following-sibling::span[contains(@class,'toggle-presentation')]")
+        self.select_first_team = page.locator("(//div/div[contains(@class,'node_name')])[1]")
+
+    def click_select_first_team(self):
+        self.select_first_team.click()
 
     def click_toggle(self):
         self.toggle.is_enabled()
         self.toggle.click()
 
-    def toggle_should_be_enabled(self):
+    def toggle_should_to_be_checked(self):
         expect(self.toggle).to_be_checked()
 
-    def toggle_should_be_disabled(self):
+    def toggle_should_not_to_be_checked(self):
         expect(self.toggle).not_to_be_checked()
 
     def click_select_team(self):
@@ -43,4 +46,6 @@ class BlockSelectOrganizationComponent(BaseComponent):
     def check_visible_performing_contracting_organization_label(self):
         expect(self.performing_contracting_organization_label).to_be_visible()
         self.base_page.check_after(self.performing_contracting_organization_label, True)
+
+
 

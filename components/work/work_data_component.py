@@ -20,7 +20,8 @@ class WorkDataComponent(BaseComponent):
         self.description_label = page.locator("//label[@id='work_description-control-label']")
         self.description_field = page.locator("//textarea[@id='work_description']")
         self.specificity_label = page.locator("//label[@id='lib_specificity_id-control-label']")
-        self.specificity_field = page.locator("//input[@id='lib_specificity_id']")
+        self.specificity_field = page.locator(
+            "//div[contains(@class,'picker-select')]/div[contains(@class,'picker')]")
         self.select_specificity_out = page.locator("//span[text()='Работы производятся на открытой площадке']")
         self.select_specificity_into = page.locator(
             "//span[text()='Работы производятся в замкнутом пространстве (колодец, сосуд, цистерна)']")
@@ -49,6 +50,8 @@ class WorkDataComponent(BaseComponent):
         self.place_work_button = page.locator("//div[contains(@class,'view-block_header')]//span[text()='Выбрать']")
         self.plot_label = page.locator("//div[text()='Участок']")
         self.plot_field = page.locator("(//div[contains(@class,'form-control')]//textarea)[3]")
+        self.select_first_work_place = page.locator("(//div[contains(text(),'Трубопроводы')])[1]")
+        self.select_first_kind_work = page.locator("(//div[contains(text(), 'Установка заглушек')])[1]")
 
     def fill_name_field(self, name: str):
         self.name_field.fill(name)
@@ -74,8 +77,8 @@ class WorkDataComponent(BaseComponent):
     def click_specificity_field(self):
         self.specificity_field.click()
 
-    def click_specificity_output(self):
-        self.specificity_field.click()
+    def click_select_specificity_output(self):
+        self.select_specificity_out.click()
 
     def click_select_specificity_into(self):
         self.select_specificity_into.click()
@@ -137,5 +140,11 @@ class WorkDataComponent(BaseComponent):
 
     def chek_visible_plot_field_field(self, plot_field: str):
         expect(self.description_field).to_have_value(plot_field)
+
+    def click_select_first_work_place(self):
+        self.select_first_work_place.click()
+
+    def click_select_first_kind_work(self):
+        self.select_first_kind_work.click()
 
 

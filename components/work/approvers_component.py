@@ -26,16 +26,16 @@ class ApproversComponent(BaseComponent):
         self.approver_position = page.locator("(//div[contains(@class,'approver-item_position')]//span)[5]")
 
 
-    def click_labor_protection(self):
+    def click_labor_protection_field(self):
         self.labor_protection_field.click()
 
-    def click_department_pkpb(self):
+    def click_department_pkpb_field(self):
         self.department_pkpb_field.click()
 
-    def click_representative_gss(self):
+    def click_representative_gss_field(self):
         self.representative_gss_field.click()
 
-    def click_approver(self):
+    def click_approver_field(self):
         self.approver_field.click()
 
     def check_visible_supervisor_team_position(self):
