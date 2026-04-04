@@ -1,16 +1,19 @@
 import time
 
+from fixtures.pages import description_page
 from pages.monitoring.operational_plan_page import OperationalPlanPage
 from pages.gas_works.to_approval_works_page import ToApprovalWorksPage
 from pages.gas_works.create_gas_work_page import CreateGasWorkPage
 from components.toolbar.toolbar_component import ToolbarComponent
+from pages.general_works_pages.description_page import DescriptionPage
 
 
-def test_displaying_toolbar_on_gas_work_pages(
+def test_create_gas_work(
         operational_plan_page: OperationalPlanPage,
         to_approval_page: ToApprovalWorksPage,
         create_gas_work_page: CreateGasWorkPage,
-        toolbar_component: ToolbarComponent
+        toolbar_component: ToolbarComponent,
+        description_page: DescriptionPage
 ):
     operational_plan_page.check_visible_main_title() # Проверка заголовка
     operational_plan_page.sidebar.click_gas_works_item() # Клик га Газоопасные работы
@@ -58,17 +61,27 @@ def test_displaying_toolbar_on_gas_work_pages(
     create_gas_work_page.click_first_responsible_in_list()
     create_gas_work_page.approvers_person_component.click_representative_gss_field()
     create_gas_work_page.click_first_responsible_in_list()
+
     create_gas_work_page.approvers_person_component.click_approver_field()
+
     create_gas_work_page.click_first_responsible_in_list()
 
     create_gas_work_page.dates_and_time_component.fill_start_date()
     create_gas_work_page.dates_and_time_component.fill_stop_date()
     create_gas_work_page.dates_and_time_component.fill_start_time()
     create_gas_work_page.dates_and_time_component.fill_stop_time()
+
     create_gas_work_page.footer_buttons_component.click_low_save()
 
     create_gas_work_page.modal_recommended_certification.check_modal_certification_title()
     create_gas_work_page.modal_recommended_certification.click_reject_recommended_certification()
+    toolbar_component.check_visible_on_approval_button()
+    description_page.work_tabs.clck_brigade_button()
+    description_page.work_tabs.clck_danger_factors_button()
+    description_page.work_tabs.clck_safe_measures_button()
+    description_page.work_tabs.clck_siz_button()
+    description_page.work_tabs.clck_files_button()
+    description_page.work_tabs.clck_history_button()
 
     time.sleep(3)
 

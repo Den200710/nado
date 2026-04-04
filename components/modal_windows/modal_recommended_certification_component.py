@@ -9,7 +9,7 @@ class ModalRecommendedCertificationComponent(BaseComponent):
 
         self.modal_certification_title = page.locator("//div[contains(@class,'modal-header')]")
         self.confirm_recommended_certification = page.locator("//button[text()='Да']")
-        self.reject_recommended_certification = page.locator("//button[text()='Да']")
+        self.reject_recommended_certification = page.locator("//button[text()='Нет']")
 
     def check_modal_certification_title(self):
         expect(self.modal_certification_title).to_be_visible()

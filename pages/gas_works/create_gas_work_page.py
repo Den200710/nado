@@ -4,12 +4,12 @@ from playwright.sync_api import Page
 from components.modal_windows.modal_recommended_certification_component import ModalRecommendedCertificationComponent
 from components.right_window.right_window_component import RightWindowComponent
 from pages.base_page import BasePage
-from components.work.select_organization_component import BlockSelectOrganizationComponent
-from components.work.work_data_component import WorkDataComponent
-from components.work.responsible_persons_component import ResponsiblePersonsComponent
-from components.work.dates_component import DatesComponent
-from components.work.approvers_component import ApproversComponent
-from components.work.footer_buttons_component import FooterButtonsComponent
+from components.create_work.select_organization_component import BlockSelectOrganizationComponent
+from components.create_work.work_data_component import WorkDataComponent
+from components.create_work.responsible_persons_component import ResponsiblePersonsComponent
+from components.create_work.dates_component import DatesComponent
+from components.create_work.approvers_component import ApproversComponent
+from components.create_work.footer_buttons_component import FooterButtonsComponent
 
 
 class CreateGasWorkPage(BasePage):

@@ -13,6 +13,7 @@ class ToolbarComponent(BaseComponent):
         self.update_list_button = page.locator("//button[@title='Обновить список']")
         self.filter_button = page.locator("//button[@title='Фильтры']")
         self.header_sub_title = page.locator("//div[contains(@class,'view-header_subtitle')]")
+        self.on_approval_button = page.locator("//button[@title='Отправить на согласование']")
 
     def click_from_template_button(self):
         self.create_from_template_button.click()
@@ -32,3 +33,6 @@ class ToolbarComponent(BaseComponent):
     def check_visible_sub_title(self):
         expect(self.header_sub_title).to_have_text("Наряды-допуски")
 
+    def check_visible_on_approval_button(self):
+        expect(self.on_approval_button).to_be_visible(timeout=7000)
+        expect(self.on_approval_button).to_be_enabled()

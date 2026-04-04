@@ -8,6 +8,7 @@ from pages.gas_works.current_works_page import CurrentWorksPage
 from pages.gas_works.to_approval_works_page import ToApprovalWorksPage
 from pages.monitoring.operational_plan_page import OperationalPlanPage
 from components.toolbar.toolbar_component import ToolbarComponent
+from pages.general_works_pages.description_page import DescriptionPage
 
 @pytest.fixture
 def login_page(chromium_page: Page) -> LoginPage:
@@ -37,3 +38,7 @@ def create_gas_work_page(initialize_browser_without_state: Page) -> CreateGasWor
 @pytest.fixture
 def toolbar_component(initialize_browser_without_state: Page) -> ToolbarComponent:
     return ToolbarComponent(page=initialize_browser_without_state)
+
+@pytest.fixture
+def description_page(initialize_browser_without_state: Page) -> DescriptionPage:
+    return DescriptionPage(page=initialize_browser_without_state)
