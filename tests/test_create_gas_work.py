@@ -1,6 +1,4 @@
 import time
-
-from fixtures.pages import description_page
 from pages.monitoring.operational_plan_page import OperationalPlanPage
 from pages.gas_works.to_approval_works_page import ToApprovalWorksPage
 from pages.gas_works.create_gas_work_page import CreateGasWorkPage
@@ -15,6 +13,7 @@ def test_create_gas_work(
         toolbar_component: ToolbarComponent,
         description_page: DescriptionPage
 ):
+
     operational_plan_page.check_visible_main_title() # Проверка заголовка
     operational_plan_page.sidebar.click_gas_works_item() # Клик га Газоопасные работы
     to_approval_page.check_title_page.check_visible_page_title("Газоопасные работы на согласовании") # Проверка открытия
@@ -34,8 +33,8 @@ def test_create_gas_work(
     create_gas_work_page.click_first_responsible_in_list()
     create_gas_work_page.click_select_admitter()
     create_gas_work_page.click_first_responsible_in_list()
-    create_gas_work_page.work_data_component.fill_name_field('Газ') # Заполняем название
-    create_gas_work_page.work_data_component.chek_visible_name_field('Газ') # Проверка отображения названия
+    create_gas_work_page.work_data_component.fill_field('name', "Тестовая работа")
+    create_gas_work_page.work_data_component.check_visible_name_field('Тестовая работа')
     create_gas_work_page.work_data_component.click_select_team()
     create_gas_work_page.block_select_organization_component.click_select_first_team()  # Выбор СП 2
     create_gas_work_page.work_data_component.click_work_kind_field() # Вид работы
@@ -48,7 +47,7 @@ def test_create_gas_work(
 
     # create_gas_work_page.work_data_component.click_temperature_measurement_toggle() # Клик переключатель температуры
     # create_gas_work_page.work_data_component.temperature_measurement_toggle_should_be_enabled() # Проверка, что включен
-    create_gas_work_page.work_data_component.click_nightly_work_toggle() # Проверка, что включен
+    create_gas_work_page.work_data_component.click_toggle('nightly_work') # Проверка, что включен
     create_gas_work_page.work_data_component.nightly_work_toggle_should_be_enabled() # Проверка, что включен
     # create_gas_work_page.work_data_component.click_holiday_work_toggle() # Клик праздничные дни
     # create_gas_work_page.work_data_component.holiday_work_toggle_should_be_enabled() # Проверка, что включен
@@ -71,17 +70,20 @@ def test_create_gas_work(
     create_gas_work_page.dates_and_time_component.fill_start_time()
     create_gas_work_page.dates_and_time_component.fill_stop_time()
 
+    created_data = create_gas_work_page.work_data_component.get_all_work_data()
+
     create_gas_work_page.footer_buttons_component.click_low_save()
 
     create_gas_work_page.modal_recommended_certification.check_modal_certification_title()
     create_gas_work_page.modal_recommended_certification.click_reject_recommended_certification()
     toolbar_component.check_visible_on_approval_button()
-    description_page.work_tabs.clck_brigade_button()
-    description_page.work_tabs.clck_danger_factors_button()
-    description_page.work_tabs.clck_safe_measures_button()
-    description_page.work_tabs.clck_siz_button()
-    description_page.work_tabs.clck_files_button()
-    description_page.work_tabs.clck_history_button()
+    description_page.verify_dangerous_data_matches_created(created_data)
+    description_page.work_tabs.click_brigade_button()
+    description_page.work_tabs.click_danger_factors_button()
+    description_page.work_tabs.click_safe_measures_button()
+    description_page.work_tabs.click_siz_button()
+    description_page.work_tabs.click_files_button()
+    description_page.work_tabs.click_history_button()
 
     time.sleep(3)
 
