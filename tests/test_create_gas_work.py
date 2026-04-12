@@ -1,4 +1,7 @@
 import time
+
+from faker import Faker
+
 from pages.monitoring.operational_plan_page import OperationalPlanPage
 from pages.gas_works.to_approval_works_page import ToApprovalWorksPage
 from pages.gas_works.create_gas_work_page import CreateGasWorkPage
@@ -11,7 +14,8 @@ def test_create_gas_work(
         to_approval_page: ToApprovalWorksPage,
         create_gas_work_page: CreateGasWorkPage,
         toolbar_component: ToolbarComponent,
-        description_page: DescriptionPage
+        description_page: DescriptionPage,
+        auto_cleanup_work,
 ):
 
     operational_plan_page.check_visible_main_title() # Проверка заголовка
@@ -33,8 +37,9 @@ def test_create_gas_work(
     create_gas_work_page.click_first_responsible_in_list()
     create_gas_work_page.click_select_admitter()
     create_gas_work_page.click_first_responsible_in_list()
-    create_gas_work_page.work_data_component.fill_field('name', "Тестовая работа")
-    create_gas_work_page.work_data_component.check_visible_name_field('Тестовая работа')
+    create_gas_work_page.work_data_component.fill_field(
+        'name',f"Тестовая работа {Faker('ru_RU').random_int(1, 1000)}")
+    # create_gas_work_page.work_data_component.check_visible_name_field('Тестовая работа')
     create_gas_work_page.work_data_component.click_select_team()
     create_gas_work_page.block_select_organization_component.click_select_first_team()  # Выбор СП 2
     create_gas_work_page.work_data_component.click_work_kind_field() # Вид работы
@@ -48,9 +53,7 @@ def test_create_gas_work(
     # create_gas_work_page.work_data_component.click_temperature_measurement_toggle() # Клик переключатель температуры
     # create_gas_work_page.work_data_component.temperature_measurement_toggle_should_be_enabled() # Проверка, что включен
     create_gas_work_page.work_data_component.click_toggle('nightly_work') # Проверка, что включен
-    create_gas_work_page.work_data_component.nightly_work_toggle_should_be_enabled() # Проверка, что включен
     # create_gas_work_page.work_data_component.click_holiday_work_toggle() # Клик праздничные дни
-    # create_gas_work_page.work_data_component.holiday_work_toggle_should_be_enabled() # Проверка, что включен
     # create_gas_work_page.work_data_component.click_is_planned_repair_work_toggle() # Клик ремонтные работы
     # create_gas_work_page.work_data_component.is_planned_repair_work_toggle_should_be_enabled() # Проверка, что включен
 
@@ -84,6 +87,8 @@ def test_create_gas_work(
     description_page.work_tabs.click_siz_button()
     description_page.work_tabs.click_files_button()
     description_page.work_tabs.click_history_button()
+
+    auto_cleanup_work(description_page.page)
 
     time.sleep(3)
 

@@ -6,15 +6,6 @@ from components.created_work.dangerous_data_component import DangerousDataCompon
 from pages.base_page import BasePage
 from components.navigation.work_page_tabs_component import WorkPageTabsComponent
 
-
-def normalize_value(value: str) -> str:
-    """Нормализует значение для сравнения"""
-    if not value:
-        return ''
-    cleaned = value.strip()
-    return '' if cleaned in ['-', '—'] else cleaned
-
-
 class DescriptionPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
@@ -24,14 +15,22 @@ class DescriptionPage(BasePage):
         self.dangerous_data = DangerousDataComponent(page)
 
     def verify_dangerous_data_matches_created(self, created_data: dict) -> None:
-        actual_name = self.dangerous_data.get_value('name')
-        assert actual_name == created_data.get('name', ''), \
-            f"Name mismatch: expected '{created_data.get('name')}', got '{actual_name}'"
-
-        actual_plot = normalize_value(self.dangerous_data.get_value('plot'))
-        expected_plot = normalize_value(created_data.get('plot', ''))
-
-        assert actual_plot == expected_plot, \
-            f"Plot mismatch: expected '{created_data.get('plot')}', got '{self.dangerous_data.get_value('plot')}'"
+        self._data_fields = [
+            ('name', 'name', 'Name', False),
+            ('plot', 'plot', 'Plot', True),
+            ('work_kind', 'work_kind', 'Work kind', False),
+            ('work_plan', 'work_plan', 'Work_plan', True),
+            ('nightly_work', 'nightly_work', 'Nightly_work', False),
+            ('temperature_measurement', 'temperature_measurement', 'Temperature_measurement', False),
+            ('order', 'order', 'Order', True),
+            # ('specificity', 'specificity', 'Work_specificity', False),
+        ]
+        for actual_key, expected_key, field_name, need_normalize in self._data_fields:
+            self.verify_field(
+                self.dangerous_data.get_value(actual_key),
+                created_data.get(expected_key, ''),
+                field_name,
+                need_normalize
+            )
 
 
