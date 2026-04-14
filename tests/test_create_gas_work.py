@@ -57,15 +57,13 @@ def test_create_gas_work(
     # create_gas_work_page.work_data_component.click_is_planned_repair_work_toggle() # Клик ремонтные работы
     # create_gas_work_page.work_data_component.is_planned_repair_work_toggle_should_be_enabled() # Проверка, что включен
 
-    create_gas_work_page.approvers_person_component.click_labor_protection_field()
+    create_gas_work_page.approvers_person_component.click_approvers('labor_protection')
     create_gas_work_page.click_first_responsible_in_list()
-    create_gas_work_page.approvers_person_component.click_department_pkpb_field()
+    create_gas_work_page.approvers_person_component.click_approvers('department_pkpb')
     create_gas_work_page.click_first_responsible_in_list()
-    create_gas_work_page.approvers_person_component.click_representative_gss_field()
+    create_gas_work_page.approvers_person_component.click_approvers('representative_gss')
     create_gas_work_page.click_first_responsible_in_list()
-
-    create_gas_work_page.approvers_person_component.click_approver_field()
-
+    create_gas_work_page.approvers_person_component.click_approvers('approver')
     create_gas_work_page.click_first_responsible_in_list()
 
     create_gas_work_page.dates_and_time_component.fill_start_date()
@@ -73,7 +71,7 @@ def test_create_gas_work(
     create_gas_work_page.dates_and_time_component.fill_start_time()
     create_gas_work_page.dates_and_time_component.fill_stop_time()
 
-    created_data = create_gas_work_page.work_data_component.get_all_work_data()
+    created_data = create_gas_work_page.get_all_work_data()
 
     create_gas_work_page.footer_buttons_component.click_low_save()
 

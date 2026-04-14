@@ -12,15 +12,13 @@ class WorkDataComponent(BaseComponent):
         # Словарь с полями ввода
         self._input_fields = {
             'name': page.locator("//input[@id='name']"),
-            'team': page.locator("//input[@id='team_id']"),
+            'performing_team': page.locator("//input[@id='team_id']"),
             'work_kind': page.locator("//input[@id='lib_work_kind_id']"),
             'work_plan': page.locator("//input[@id='work_plan_id']"),
             'description': page.locator("//textarea[@id='work_description']"),
             'order': page.locator("//textarea[@id='order_name']"),
             'plot': page.locator("(//div[contains(@class,'form-control')]//textarea)[3]"),
-            'specificity': page.locator(
-                "//*[@id='__next']"
-                "/div[1]/div[3]/div/div[2]/form/div[2]/div[1]/div[3]/div[2]/div[4]/div[2]/div/div/div/div/div[1]/span")
+            'specificity': page.locator("//span[contains(text(),'Работы производятся')]")
         }
         # Словарь с переключателями
         self._toggles = {
@@ -76,7 +74,7 @@ class WorkDataComponent(BaseComponent):
         expect(self._input_fields['name']).to_have_value(name)
 
     def click_select_team(self):
-        self._input_fields['team'].click()
+        self._input_fields['performing_team'].click()
 
     def click_work_kind_field(self):
         self._input_fields['work_kind'].click()
@@ -105,8 +103,6 @@ class WorkDataComponent(BaseComponent):
     def click_toggle(self, toggle_name: str) -> None:
         """Кликнуть по переключателю"""
         locator = self._toggles.get(toggle_name)
-        if not locator:
-            raise KeyError(f"Toggle '{toggle_name}' not found")
         locator.click()
 
     def temperature_measurement_toggle_should_be_enabled(self):
@@ -146,11 +142,19 @@ class WorkDataComponent(BaseComponent):
         self.select_first_kind_work.click()
 
     def get_field_value(self, field_name: str) -> str:
-        """Получить значение поля по имени"""
+        """Получить значение поля по имени (работает с любыми элементами)"""
         locator = self._input_fields.get(field_name)
         if not locator:
             raise KeyError(f"Field '{field_name}' not found")
-        value = locator.input_value()
+        value = None
+        try:
+            value = locator.input_value()
+        except Exception:
+            pass
+        if value is None:
+            value = locator.get_attribute("value")
+        if not value:
+            value = locator.text_content()
         return value.strip() if value else ''
 
     def get_toggle_state(self, toggle_name: str) -> bool:
@@ -171,8 +175,10 @@ class WorkDataComponent(BaseComponent):
             'nightly_work': self.get_toggle_state('nightly_work'),
             'temperature_measurement': self.get_toggle_state('temperature_measurement'),
             'order': self.get_field_value('plot'),
-            # 'specificity': self.get_field_value('specificity'),
-
+            'specificity': self.get_field_value('specificity'),
+            'performing_team': self.get_field_value('performing_team'),
+            'holiday_work': self.get_toggle_state('holiday_work'),
         }
+
 
 

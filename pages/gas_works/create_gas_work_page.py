@@ -57,3 +57,19 @@ class CreateGasWorkPage(BasePage):
     def click_first_responsible_in_list(self):
         self.permit_issuer.click_select_first_responsible_in_list()
 
+    def get_all_responsible_data(self) -> dict:
+        """Получаем всех ответственных лиц"""
+        return {
+            'permit_issuer': self.permit_issuer.get_value(),
+            'executor': self.executor.get_value(),
+            'admitter': self.admitter.get_value(),
+            'representative_gss': self.representative_gss.get_value(),
+            'shift_supervisor': self.shift_supervisor.get_value(),
+        }
+
+    def get_all_work_data(self) -> dict:
+        """Получаем все данные работы"""
+        work_data = self.work_data_component.get_all_work_data()
+        responsible_data = self.get_all_responsible_data()
+        approvers_data = self.approvers_person_component.get_all_approvers_data()
+        return {**work_data, **responsible_data, **approvers_data}

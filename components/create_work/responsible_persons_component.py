@@ -25,4 +25,3 @@ class ResponsiblePersonsComponent(BaseComponent):
 
     def click_select_first_responsible_in_list(self) -> None:
         self.select_first_responsible_in_list.click()
-
